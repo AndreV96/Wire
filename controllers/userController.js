@@ -89,6 +89,21 @@ const userController = {
     }
   },
   // DELETE friend
+  deleteFriend: async (req, res) => {
+    try {
+      const userDB = await User.findOneAndUpdate(
+        { _id: req.params.id },
+        { $pull: { friends: req.params.friendId} },
+        { runValidators: true, new: true }
+      );
+      !userDB
+        ? res.status(404).json({ message: 'No user found with the first id provided!' })
+        : res.json(userDB);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  }
   // deleteFriend
 };
 
