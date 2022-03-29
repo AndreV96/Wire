@@ -82,6 +82,36 @@ const thoughtController = {
       res.status(500).json(err);
     }
   },
+  addThoughtReaction: async (req, res) => {
+    try {
+      const thoughtDB = await Thought.findOneAndUpdate(
+          { _id: req.params.id },
+          { $addToSet: { reactions: req.body } },
+          { runValidators: true, new: true }
+      )
+      !thoughtDB
+        ? res.status(404).json({ message: 'No thought found with this id!' })
+        : res.json(thoughtDB)
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  },
+  deleteThoughtReaction: async (req, res) => {
+    try {
+      const thoughtDB = await Thought.findOneAndUpdate(
+          { _id: req.params.id },
+          { $pull: { reactions: {reactionId: req.params.reactionId} } },
+          { runValidators: true, new: true }
+      )
+      !thoughtDB
+        ? res.status(404).json({ message: 'No thought found with this id!' })
+        : res.json(thoughtDB)
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  }
 };
 
 module.exports = thoughtController;
