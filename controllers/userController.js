@@ -1,6 +1,7 @@
-const { User } = require("../models");
+const { User, Thought } = require("../models");
 
 const userController = {
+  //GET all
   getAllUsers: async (req, res) => {
     try {
       const userDB = await User.find()
@@ -12,6 +13,7 @@ const userController = {
       res.status(500).json(err);
     }
   },
+  //Get one
   getSingleUser: async (req, res) => {
     try {
       const userDB = await User.findById(req.params.id)
@@ -23,6 +25,7 @@ const userController = {
       res.status(500).json(err);
     }
   },
+  //POST
   createUser: async (req, res) => {
     try {
       const newUser = await User.create(req.body);
@@ -37,6 +40,7 @@ const userController = {
       res.status(500).json(err);
     }
   },
+  //PUT
   updateUser: async (req, res) => {
     try {
       const userDB = await User.findOneAndUpdate(
@@ -53,6 +57,21 @@ const userController = {
       res.status(500).json(err);
     }
   },
+  //DELETE
+  deleteUser: async (req, res) => {
+    try {
+      const userDB = await User.findOneAndDelete({_id: req.params.id})
+      //Will this work?
+      !userDB
+        ? res.status(404).json({ message: 'No user with this id!' })
+        //Delete al thought associated with this user
+        : await Thought.deleteMany ({ _id: {$in: userDB.thoughts}})
+        res.json({ message: 'User and Thoughts deleted!' })
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  }
 };
 
 module.exports = userController;
