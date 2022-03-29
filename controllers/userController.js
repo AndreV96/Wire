@@ -71,7 +71,24 @@ const userController = {
       console.log(err);
       res.status(500).json(err);
     }
-  }
+  },
+  //POST add friend
+  // addFriend: async (req, res) => {
+  //   try {
+  //     const newUser = await User.create(req.body);
+  //     // Example data
+  //     // {
+  //     //   "username": "lernantino",
+  //     //   "email": "lernantino@gmail.com"
+  //     // }
+  //     res.json(newUser);
+  //   } catch (err) {
+  //     console.log(err);
+  //     res.status(500).json(err);
+  //   }
+  // },
+  //DELETE friend
+  // deleteFriend
 };
 
 module.exports = userController;
