@@ -39,7 +39,7 @@ const thoughtController = {
             .json({
               message: "Thought created, but found no User with that id",
             })
-        : res.json("Created new thought :)");
+        : res.json(newThought);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
@@ -66,16 +66,12 @@ const thoughtController = {
       if (!thoughtDB)
         res.status(404).json({ message: "No thought with this id!" });
       if (thoughtDB) {
-        const userDB = await User.findOneAndUpdate(
-          { thoughts: req.params.id },
+        await User.findOneAndUpdate(
+          { _id: thoughtDB.userId },
           { $pull: { thoughts: req.params.id } },
           { new: true }
         );
-        !userDB
-          ? res
-              .status(404)
-              .json({ message: "Thought created but no user with this id!" })
-          : res.json({ message: "Thought deleted!" });
+        res.json({ message: "Thought deleted!" });
       }
     } catch (err) {
       console.log(err);

@@ -10,7 +10,7 @@ const userController = {
       res.json(userDB);
     } catch (err) {
       console.log(err);
-      res.status(500).json(err);
+      res.status(500).json(err.message);
     }
   },
   //Get one
