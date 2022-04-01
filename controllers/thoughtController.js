@@ -10,6 +10,7 @@ const thoughtController = {
       res.status(500).json(err);
     }
   },
+  // GET all
   getSingleThought: async (req, res) => {
     try {
       const thoughtDB = await Thought.findById(req.params.id);
@@ -21,6 +22,7 @@ const thoughtController = {
       res.status(500).json(err);
     }
   },
+  // GET one
   createThought: async (req, res) => {
     try {
       const newThought = await Thought.create(req.body);
@@ -47,6 +49,7 @@ const thoughtController = {
       res.status(500).json(err);
     }
   },
+  // PUT
   updateThought: async (req, res) => {
     try {
       const thoughtDB = await Thought.findOneAndUpdate(
@@ -62,6 +65,7 @@ const thoughtController = {
       res.status(500).json(err);
     }
   },
+  // DELETE
   deleteThought: async (req, res) => {
     try {
       const thoughtDB = await Thought.findOneAndRemove({ _id: req.params.id });
@@ -80,9 +84,15 @@ const thoughtController = {
       res.status(500).json(err);
     }
   },
+  // ADD thought
   addThoughtReaction: async (req, res) => {
     try {
       const thoughtDB = await Thought.findOneAndUpdate(
+        // Example Data
+        // {
+        //   "reactionBody": "This is a Reaction! 2",
+        //   "username": "Rafaelo"
+        // }
           { _id: req.params.id },
           { $addToSet: { reactions: req.body } },
           { runValidators: true, new: true }
@@ -95,6 +105,7 @@ const thoughtController = {
       res.status(500).json(err);
     }
   },
+  //DELETE thought
   deleteThoughtReaction: async (req, res) => {
     try {
       const thoughtDB = await Thought.findOneAndUpdate(

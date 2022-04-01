@@ -106,7 +106,6 @@ const userController = {
       res.status(500).json(err);
     }
   }
-  // deleteFriend
 };
 
 module.exports = userController;
