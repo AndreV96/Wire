@@ -62,11 +62,13 @@ const userController = {
     try {
       const userDB = await User.findOneAndDelete({_id: req.params.id})
       //Will this work?
-      !userDB
-        ? res.status(404).json({ message: 'No user with this id!' })
+      if (!userDB) {
+         res.status(404).json({ message: 'No user with this id!' })
         //Delete al thought associated with this user
-        : await Thought.deleteMany ({ _id: {$in: userDB.thoughts}})
+      } else {
+        await Thought.deleteMany ({ _id: {$in: userDB.thoughts}})
         res.json({ message: 'User and Thoughts deleted!' })
+      }  
     } catch (err) {
       console.log(err);
       res.status(500).json(err);

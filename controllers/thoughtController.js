@@ -13,7 +13,9 @@ const thoughtController = {
   getSingleThought: async (req, res) => {
     try {
       const thoughtDB = await Thought.findById(req.params.id);
-      res.json(thoughtDB);
+      !thoughtDB
+        ? res.status(404).json({message: "No though found with that id"})
+        : res.json(thoughtDB);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
@@ -97,7 +99,7 @@ const thoughtController = {
     try {
       const thoughtDB = await Thought.findOneAndUpdate(
           { _id: req.params.id },
-          { $pull: { reactions: {reactionId: req.params.reactionId} } },
+          { $pull: { reactions: {_id: req.params.reactionId} } },
           { runValidators: true, new: true }
       )
       !thoughtDB
