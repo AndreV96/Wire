@@ -1,3 +1,4 @@
+const moment = require("moment")
 const {Schema, model} = require("mongoose");
 const reactionSchema = require("./Reaction");
 
@@ -12,7 +13,7 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      //get: create function with moment.js to format date
+      get: (createdAt) => formatDate(createdAt)
     },
     username: {
       type: String,
@@ -25,10 +26,15 @@ const thoughtSchema = new Schema(
   {
     toJSON: {
       virtuals: true,
+      getters: true,
     },
     id: false,
   }
 )
+
+function formatDate(createdAt) {
+  return moment(createdAt).format('MMMM Do YYYY')
+} 
 
 thoughtSchema
   .virtual('reactionCount')

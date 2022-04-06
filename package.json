@@ -20,6 +20,7 @@
   "homepage": "https://github.com/AndreV96/Wire#readme",
   "dependencies": {
     "express": "^4.17.3",
+    "moment": "^2.29.2",
     "mongoose": "^6.2.8"
   }
 }
