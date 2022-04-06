@@ -5,6 +5,14 @@
 
 The purpose of this repository is to create an API server made with MongoDB and Mongoose. This API will allow the user to Create, Read, Update, and Delete new and existing users as well as new and existing "thoughts". The user will also be able to update any user's friends list by adding or removing other users as friends. The user will also be able to update any thought's reactions list by adding or removing reactions of any specifici thought. This repository has no front-end and the API routes can be accesed via Insomnia to test the server.
 
+Functionality Video (All API calls made in Insomnia): https://drive.google.com/file/d/11crIo8yHVVDNNGpFmWACqhankQYT3phK/view
+
+![Get All User Route](img/SS_get_all_users.PNG)
+
+![Post New Though](img/SS_post_new_thought.PNG)
+
+*You can find all the API calls made in the functionality video
+
 ## Table of Contents 
 
 - [Installation](#installation)
